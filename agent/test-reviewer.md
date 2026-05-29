@@ -2,7 +2,7 @@
 name: test-reviewer
 description: Reviews tests, TDD cases, eval scenarios, coverage, assertions, mocks, brittleness, flakiness, and implementation-coupled test design.
 mode: subagent
-model: openai/gpt-5.5
+model: opencode/gpt-5.4-mini
 temperature: 0.1
 color: info
 permission:

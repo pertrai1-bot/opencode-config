@@ -2,7 +2,7 @@
 name: debugger
 description: Reproduces bugs, failing tests, CI/build/lint/typecheck failures, regressions, flaky behavior, and unexpected behavior before fixing root causes.
 mode: subagent
-model: openai/gpt-5.5
+model: opencode/gpt-5.4
 temperature: 0.3
 color: error
 permission:

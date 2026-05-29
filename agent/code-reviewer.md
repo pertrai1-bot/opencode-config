@@ -2,7 +2,7 @@
 name: code-reviewer
 description: Reviews PRs, branches, diffs, and local changes for bugs, regressions, security, maintainability, and merge risk without editing code.
 mode: subagent
-model: openai/gpt-5.5
+model: opencode/gpt-5.4-mini
 temperature: 0.1
 color: warning
 permission:
