@@ -24,16 +24,11 @@ Skills are reusable knowledge packages. Load them on demand when a workflow is a
 - When the task needs a detailed checklist, artifact template, or review rubric.
 - When the task has moved from a light path into a specialized path such as spec writing, implementation planning, debugging, or review.
 
-### Installed Priority Skills
+### Installed Workflow Skills
 
 - `product-requirements-writer` - Turn rough feature ideas, vague requirements, or product requests into a concrete PRD/spec before implementation planning.
 - `implementation-task-planner` - Turn a PRD, issue, spec, or acceptance criteria into an executable task list with likely files, tests, validation steps, and checkpoints.
 - `specification-driven-development` - Use the full spec-first protocol for features or cross-cutting changes where build-and-see would risk rework.
-
-### Next Workflow Skills To Integrate
-
-These are the next skills to add under `~/.config/opencode/skills/`. Until they exist, use the workflow summaries below.
-
 - `adaptive-routing` - Select the lightest safe workflow path for the task.
 - `task-framing` - Frame non-trivial, ambiguous, high-risk, or cross-cutting tasks before substantial edits.
 - `verification` - Produce evidence of correctness before declaring work complete.
@@ -41,15 +36,16 @@ These are the next skills to add under `~/.config/opencode/skills/`. Until they 
 - `exploration-mode` - Investigate options before committing to an implementation approach.
 - `codebase-navigation` - Use progressive codebase orientation before implementation, review, or unfamiliar work.
 
-### Later Specialist Skills To Integrate
-
-These are useful follow-on skills, but they are not required for the first spec-driven workflow slice.
+### Installed Specialist Skills
 
 - `code-reviewer` - Review PRs, branches, diffs, or local changes for bugs, regressions, security, maintainability, and merge risk.
 - `systematic-debugging` - Reproduce, localize, hypothesize, fix, and prove bugs or failures without guess-and-check edits.
 - `self-audit` - Run a pre-verification Jenga test, anomaly register, diff check, and scope reality check.
 - `spec-reviewer` - Review implementation against a written spec or PRD.
 - `test-reviewer` - Review tests and evaluation scenarios.
+
+### Additional Specialist Skills To Integrate
+
 - `architecture-boundary-reviewer` - Review imports, exports, package boundaries, dependency direction, and shared-code movement.
 - `codebase-health-reviewer` - Review TypeScript/JavaScript refactors, duplication, dead code, complexity, and static-analysis health.
 - `production-readiness-reviewer` - Review production-sensitive changes involving persistence, external services, async jobs, auth, security, privacy, deploy, performance, or critical paths.
