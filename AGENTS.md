@@ -35,6 +35,12 @@ Skills are reusable knowledge packages. Load them on demand when a workflow is a
 - `error-memory` - Capture repeated, non-obvious mistakes as durable prevention rules.
 - `exploration-mode` - Investigate options before committing to an implementation approach.
 - `codebase-navigation` - Use progressive codebase orientation before implementation, review, or unfamiliar work.
+- `architecture-boundaries` - Protect import/export, package, service, and dependency-direction boundaries.
+- `context-handoff` - Create compact handoffs when switching phases, sessions, or agents.
+- `session-decisions` - Record durable decisions and their reasoning for future sessions.
+- `test-driven-development` - Drive behavior changes through red-green-refactor tracer bullets.
+- `type-driven-development` - Use types and public contracts to constrain implementation.
+- `workspace-isolation` - Decide when to protect shared checkouts with isolated workspaces.
 
 ### Installed Specialist Skills
 
@@ -43,9 +49,6 @@ Skills are reusable knowledge packages. Load them on demand when a workflow is a
 - `self-audit` - Run a pre-verification Jenga test, anomaly register, diff check, and scope reality check.
 - `spec-reviewer` - Review implementation against a written spec or PRD.
 - `test-reviewer` - Review tests and evaluation scenarios.
-
-### Additional Specialist Skills To Integrate
-
 - `architecture-boundary-reviewer` - Review imports, exports, package boundaries, dependency direction, and shared-code movement.
 - `codebase-health-reviewer` - Review TypeScript/JavaScript refactors, duplication, dead code, complexity, and static-analysis health.
 - `production-readiness-reviewer` - Review production-sensitive changes involving persistence, external services, async jobs, auth, security, privacy, deploy, performance, or critical paths.
