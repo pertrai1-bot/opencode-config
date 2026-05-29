@@ -1,0 +1,39 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "openai/gpt-5.5",
+  "small_model": "opencode/kimi-k2.5",
+  "agent": {
+    "build": {
+      "model": "openai/gpt-5.5",
+    },
+    "plan": {
+      "model": "opencode/kimi-k2.5",
+    },
+  },
+  "autoupdate": true,
+  "server": {
+    "port": 4096,
+  },
+  "mcp": {
+    "context7": {
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp",
+      "enabled": true,
+    },
+    "playwright": {
+      "type": "local",
+      "command": ["npx", "@playwright/mcp@latest"],
+      "enabled": true,
+    },
+    "memory": {
+      "type": "local",
+      "command": ["npx", "@modelcontextprotocol/server-memory"],
+      "enabled": true,
+    },
+    "gitnexus": {
+      "type": "local",
+      "command": ["gitnexus", "mcp"],
+      "enabled": true,
+    },
+  },
+}
