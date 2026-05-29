@@ -1,240 +1,160 @@
 <!-- context7 -->
-Use Context7 MCP to fetch current documentation whenever the user asks about a library, framework, SDK, API, CLI tool, or cloud service -- even well-known ones like React, Next.js, Prisma, Express, Tailwind, Django, or Spring Boot. This includes API syntax, configuration, version migration, library-specific debugging, setup instructions, and CLI tool usage. Use even when you think you know the answer -- your training data may not reflect recent changes. Prefer this over web search for library docs.
+Use Context7 MCP to fetch current documentation whenever the user asks about a library, framework, SDK, API reference, CLI tool, or cloud service. This includes setup, configuration, migration, library-specific debugging, and code examples. Prefer Context7 over web search for library docs.
 
-Do not use for: refactoring, writing scripts from scratch, debugging business logic, code review, or general programming concepts.
+Do not use Context7 for refactoring, business-logic debugging, code review, or general programming concepts.
 
-## Steps
+## Context7 Steps
 
-1. Always start with `resolve-library-id` using the library name and the user's question, unless the user provides an exact library ID in `/org/project` format
-2. Pick the best match (ID format: `/org/project`) by: exact name match, description relevance, code snippet count, source reputation (High/Medium preferred), and benchmark score (higher is better). If results don't look right, try alternate names or queries (e.g., "next.js" not "nextjs", or rephrase the question). Use version-specific IDs when the user mentions a version
-3. `query-docs` with the selected library ID and the user's full question (not single words)
-4. Answer using the fetched docs
+1. Always start with `resolve-library-id` using the library name and the user's question, unless the user provides an exact library ID in `/org/project` format.
+2. Pick the best match by exact name, relevant description, snippet coverage, source reputation, and benchmark score.
+3. Use `query-docs` with the selected library ID and the user's full question.
+4. Answer using the fetched docs.
 <!-- context7 -->
 
 ---
 
-## Skills - Knowledge Injection
+## Skills - Progressive Disclosure
 
-Skills are reusable knowledge packages. Load them on-demand for specialized tasks.
+Skills are reusable knowledge packages. Load them on demand when a workflow is active or when the task needs the full protocol, checklist, output format, or forbidden-pattern guidance.
 
-### When to Use
+### When to Load a Skill
 
-- Before unfamiliar work - check if a skill exists
-- When you need domain-specific patterns
-- For complex workflows that benefit from guidance
+- Before unfamiliar or high-risk work when a matching skill exists.
+- When a workflow summary below says to load the corresponding skill.
+- When the task needs a detailed checklist, artifact template, or review rubric.
+- When the task has moved from a light path into a specialized path such as spec writing, implementation planning, debugging, or review.
 
-### Usage
+### Installed Priority Skills
 
-```bash
-skills_list()                              # See available skills
-skills_use(name="swarm-coordination")      # Load a skill
-skills_use(name="cli-builder", context="building a new CLI") # With context
-```
+- `product-requirements-writer` - Turn rough feature ideas, vague requirements, or product requests into a concrete PRD/spec before implementation planning.
+- `implementation-task-planner` - Turn a PRD, issue, spec, or acceptance criteria into an executable task list with likely files, tests, validation steps, and checkpoints.
+- `specification-driven-development` - Use the full spec-first protocol for features or cross-cutting changes where build-and-see would risk rework.
 
-**Bundled Skills:** cli-builder, learning-systems, skill-creator, swarm-coordination, system-design, testing-patterns
+### Next Workflow Skills To Integrate
+
+These are the next skills to add under `~/.config/opencode/skills/`. Until they exist, use the workflow summaries below.
+
+- `adaptive-routing` - Select the lightest safe workflow path for the task.
+- `task-framing` - Frame non-trivial, ambiguous, high-risk, or cross-cutting tasks before substantial edits.
+- `verification` - Produce evidence of correctness before declaring work complete.
+- `error-memory` - Capture repeated, non-obvious mistakes as durable prevention rules.
+- `exploration-mode` - Investigate options before committing to an implementation approach.
+- `codebase-navigation` - Use progressive codebase orientation before implementation, review, or unfamiliar work.
+
+### Later Specialist Skills To Integrate
+
+These are useful follow-on skills, but they are not required for the first spec-driven workflow slice.
+
+- `code-reviewer` - Review PRs, branches, diffs, or local changes for bugs, regressions, security, maintainability, and merge risk.
+- `systematic-debugging` - Reproduce, localize, hypothesize, fix, and prove bugs or failures without guess-and-check edits.
+- `self-audit` - Run a pre-verification Jenga test, anomaly register, diff check, and scope reality check.
+- `spec-reviewer` - Review implementation against a written spec or PRD.
+- `test-reviewer` - Review tests and evaluation scenarios.
+- `architecture-boundary-reviewer` - Review imports, exports, package boundaries, dependency direction, and shared-code movement.
+- `codebase-health-reviewer` - Review TypeScript/JavaScript refactors, duplication, dead code, complexity, and static-analysis health.
+- `production-readiness-reviewer` - Review production-sensitive changes involving persistence, external services, async jobs, auth, security, privacy, deploy, performance, or critical paths.
+- `harness-hooks-reviewer` - Review deterministic agent harness hooks and workflow automation.
+- `mcp-integration-reviewer` - Review MCP servers/tools, tool schemas, and agent-accessible API bridges.
+- `subagent-driven-development` - Coordinate delegated or isolated implementation work when explicitly using subagents.
+
+---
+
+## Workflows - Universal Rules
+
+These rules are always loaded. They provide routing and workflow selection only. Load the matching skill when the workflow is active and the summary is not enough.
+
+### 1. Spec-Driven Development
+
+Use for features, API additions, cross-cutting changes, unclear requirements, or any change where build-and-see risks rework.
+
+Sequence:
+
+1. PRD: load `product-requirements-writer` to define the problem, goals, non-goals, users, scope, functional requirements, success criteria, and open questions.
+2. Tasks: load `implementation-task-planner` to turn the PRD/spec into small executable tasks with likely files, test targets, validation commands, and review checkpoints.
+3. Implementation: follow the task list. Use task framing before major edits and routing to select any additional workflow path.
+4. Verification: produce evidence that the implementation satisfies the spec before claiming completion.
+
+Do not implement before the specification exists when the task needs spec-driven development. The spec is the contract; code is the delivery.
+
+### 2. Adaptive Routing
+
+Use for every task. Pick the lightest safe path that still proves correctness.
+
+- Light Path: typo, docs wording, comments, formatting-only, or metadata changes with no behavior/build/test/runtime impact.
+- Full Path: new features, behavior changes, meaningful refactors, tests changed for behavior, type/API changes.
+- Debugging Path: bugs, failing tests, failing CI/build/lint/typecheck, regressions, flaky or unexpected behavior.
+- Boundary Path: imports, exports, packages, shared utilities, public entry points, folder moves, service boundaries, or dependency direction.
+- Review Path: PR, branch, diff, or local-change review.
+- Exploration Path: investigation, comparison, explanation, research, uncertainty, or approach discovery.
+- Policy Path: changes to directives, skills, repo workflow, contributor instructions, architecture policy, or cross-cutting conventions.
+
+Do not load every skill by default. Escalate by risk, not by user wording. A request for a quick fix does not downgrade safety for security, data, public API, persistence, or boundary changes.
+
+### 3. Task Framing
+
+Use before substantial edits on non-trivial, ambiguous, high-risk, or cross-cutting work.
+
+Establish the problem, success criteria, constraints, definitions, assumptions, failure modes, alternatives, evidence plan, and scope budget. If a binary choice appears, find at least one real third option before deciding. Ask one concise clarifying question when an unknown materially affects safety or scope.
+
+### 4. Verification
+
+Use after implementation and before claiming completion, opening a PR, or handing off work.
+
+Verification must provide evidence, not assertions. Include the relevant functional proof, test proof, integration proof, boundary proof, documentation proof, and scope-control proof. In normal opencode sessions, put the verification summary in the final response or PR body if a PR is created.
+
+### 5. Error Memory
+
+Use when a mistake is likely to recur and prevention is non-obvious.
+
+Write durable error memory only when the mistake reached a commit, PR, or significant draft; a human corrected it or verification caught it; it is likely to recur; and the prevention strategy is not obvious. Store reusable prevention knowledge, not blame or one-off trivia.
+
+### 6. Exploration Mode
+
+Use when the user asks to explore, investigate, compare options, think through an approach, or handle uncertainty.
+
+Do not implement during exploration unless the user explicitly switches to execution. Be curious rather than prescriptive, ground conclusions in repo evidence where relevant, surface multiple plausible directions, and state uncertainty directly.
+
+### 7. Codebase Navigation
+
+Use for unfamiliar repositories, unfamiliar areas, or new multi-step sessions.
+
+Orient progressively before editing. Survey the project instructions, top-level structure, entry points, and build/test/lint commands. Analyze only the relevant types, tests, and patterns. Focus on the files needed for the task. Avoid deep tree dumps, full-file reads, and unrelated context loading.
+
+---
 
 ## Hivemind - Unified Memory System
 
-The hive remembers everything. Learnings, sessions, patterns—all searchable.
-
-**Unified storage:** Manual learnings and AI agent session histories stored in the same database, searchable together. Powered by libSQL vectors + Ollama embeddings.
-
-**Indexed agents:** Claude Code, Codex, Cursor, Gemini, Aider, ChatGPT, Cline, OpenCode, Amp, Pi-Agent
+The hive remembers learnings, decisions, patterns, and prior agent sessions. Query it before complex implementation or debugging to avoid rediscovering known solutions.
 
 ### When to Use
 
-- **BEFORE implementing** - check if you or any agent solved it before
-- **After solving hard problems** - store learnings for future sessions
-- **Debugging** - search past sessions for similar errors
-- **Architecture decisions** - record reasoning, alternatives, tradeoffs
-- **Project-specific patterns** - capture domain rules and gotchas
-
-### Tools
-
-| Tool | Purpose |
-|------|---------|
-| `hivemind_store` | Store a memory (learnings, decisions, patterns) |
-| `hivemind_find` | Search all memories (learnings + sessions, semantic + FTS fallback) |
-| `hivemind_get` | Get specific memory by ID |
-| `hivemind_remove` | Delete outdated/incorrect memory |
-| `hivemind_validate` | Confirm memory still accurate (resets 90-day decay timer) |
-| `hivemind_stats` | Memory statistics and health check |
-| `hivemind_index` | Index AI session directories |
-| `hivemind_sync` | Sync to .hive/memories.jsonl (git-backed, team-shared) |
-
-### Usage
-
-**Store a learning** (include WHY, not just WHAT):
-
-```typescript
-hivemind_store({
-  information: "OAuth refresh tokens need 5min buffer before expiry to avoid race conditions. Without buffer, token refresh can fail mid-request if expiry happens between check and use.",
-  tags: "auth,oauth,tokens,race-conditions"
-})
-```
-
-**Search all memories** (learnings + sessions):
-
-```typescript
-// Search everything
-hivemind_find({ query: "token refresh", limit: 5 })
-
-// Search only learnings (manual entries)
-hivemind_find({ query: "authentication", collection: "default" })
-
-// Search only Claude sessions
-hivemind_find({ query: "Next.js caching", collection: "claude" })
-
-// Search only Cursor sessions
-hivemind_find({ query: "API design", collection: "cursor" })
-```
-
-**Get specific memory**:
-
-```typescript
-hivemind_get({ id: "mem_xyz123" })
-```
-
-**Delete outdated memory**:
-
-```typescript
-hivemind_remove({ id: "mem_old456" })
-```
-
-**Validate memory is still accurate** (resets decay):
-
-```typescript
-// Confirmed this memory is still relevant
-hivemind_validate({ id: "mem_xyz123" })
-```
-
-**Index new sessions**:
-
-```typescript
-// Automatically indexes ~/.config/opencode/sessions, ~/.cursor-tutor, etc.
-hivemind_index()
-```
-
-**Sync to git**:
-
-```typescript
-// Writes learnings to .hive/memories.jsonl for git sync
-hivemind_sync()
-```
-
-**Check stats**:
-
-```typescript
-hivemind_stats()
-```
+- Before implementing non-trivial work, search for relevant learnings or similar prior sessions.
+- During debugging, search for similar errors, failure modes, or past fixes.
+- After solving a hard or recurring problem, store the root cause, prevention strategy, and why it matters.
+- When an architecture decision or project-specific pattern is confirmed, store the reasoning and tradeoffs.
 
 ### Usage Pattern
 
-```bash
-# 1. Before starting work - query for relevant learnings
+```typescript
+// Before starting work
 hivemind_find({ query: "<task keywords>", limit: 5 })
 
-# 2. Do the work...
-
-# 3. After solving hard problem - store learning
+// After solving a durable problem
 hivemind_store({
-  information: "<what you learned, WHY it matters>",
+  information: "<what was learned, why it matters, and how to prevent recurrence>",
   tags: "<relevant,tags>"
 })
-
-# 4. Validate memories when you confirm they're still accurate
-hivemind_validate({ id: "<memory-id>" })
 ```
 
-### Integration with Workflow
+Store why, not just what. Validate or remove stale memories when you discover they are outdated.
 
-**At task start** (query BEFORE implementing):
+---
 
-```bash
-# Check if you or any agent solved similar problems
-hivemind_find({ query: "OAuth token refresh buffer", limit: 5 })
-```
+## Working Rules
 
-**During debugging** (search past sessions):
-
-```bash
-# Find similar errors from past sessions
-hivemind_find({ query: "cannot read property of undefined", collection: "claude" })
-```
-
-**After solving problems** (store learnings):
-
-```bash
-# Store root cause + solution, not just "fixed it"
-hivemind_store({
-  information: "Next.js searchParams causes dynamic rendering. Workaround: destructure in parent, pass as props to cached child.",
-  tags: "nextjs,cache-components,dynamic-rendering,searchparams"
-})
-```
-
-**Learning from other agents**:
-
-```bash
-# See how Cursor handled similar feature
-hivemind_find({ query: "implement authentication", collection: "cursor" })
-```
-
-**Pro tip:** Query Hivemind at the START of complex tasks. Past solutions (yours or other agents') save time and prevent reinventing wheels.
-
-## Swarm Coordinator Checklist (MANDATORY)
-
-When coordinating a swarm, you MUST monitor workers and review their output.
-
-### Monitor Loop
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                 COORDINATOR MONITOR LOOP                    │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│  1. CHECK INBOX                                             │
-│     swarmmail_inbox()                                       │
-│     swarmmail_read_message(message_id=N)                    │
-│                                                             │
-│  2. CHECK STATUS                                            │
-│     swarm_status(epic_id, project_key)                      │
-│                                                             │
-│  3. REVIEW COMPLETED WORK                                   │
-│     swarm_review(project_key, epic_id, task_id, files)      │
-│     → Generates review prompt with epic context + diff      │
-│                                                             │
-│  4. SEND FEEDBACK                                           │
-│     swarm_review_feedback(                                  │
-│       project_key, task_id, worker_id,                      │
-│       status="approved|needs_changes",                      │
-│       issues="[{file, line, issue, suggestion}]"            │
-│     )                                                       │
-│                                                             │
-│  5. INTERVENE IF NEEDED                                     │
-│     - Blocked >5min → unblock or reassign                   │
-│     - File conflicts → mediate                              │
-│     - Scope creep → approve or reject                       │
-│     - 3 review failures → escalate to human                 │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
-```
-
-### Review Tools
-
-| Tool | Purpose |
-|------|---------|
-| `swarm_review` | Generate review prompt with epic context, dependencies, and git diff |
-| `swarm_review_feedback` | Send approval/rejection to worker (tracks 3-strike rule) |
-
-### Review Criteria
-
-- Does work fulfill subtask requirements?
-- Does it serve the overall epic goal?
-- Does it enable downstream tasks?
-- Type safety, no obvious bugs?
-
-### 3-Strike Rule
-
-After 3 review rejections, task is marked **blocked**. This signals an architectural problem, not "try harder."
-
-**NEVER skip the review step.** Workers complete faster when they get feedback.
+- Prefer small, correct changes over broad rewrites.
+- Do not perform unrelated cleanup, speculative abstraction, or drive-by formatting.
+- Preserve user or other-agent work in dirty worktrees. Never revert changes you did not make unless explicitly asked.
+- For frontend work, preserve existing design-system conventions unless the task explicitly asks for new visual direction.
+- For reviews, findings come first and are ordered by severity with file/line references.
+- At the end of work, state what changed, what was verified, and any remaining risks or restart requirements.
