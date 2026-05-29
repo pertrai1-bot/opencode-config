@@ -5,6 +5,11 @@
   "agent": {
     "build": {
       "model": "openai/gpt-5.5",
+      "temperature": 0.2,
+      "permission": {
+        "edit": "allow",
+        "bash": "ask",
+      },
     },
     "plan": {
       "model": "opencode/kimi-k2.5",

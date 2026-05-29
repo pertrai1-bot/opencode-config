@@ -89,15 +89,15 @@ covers. The path column shows where the situation commonly appears; it is not a
 filter that prevents loading a matched skill when paths are combined or escalated.
 If no row matches, state that no specialist skill is required.
 
-| Situation / intent | Common path(s) | Required skill |
+| Situation / intent | Common path(s) | Required agent/skill |
 | --- | --- | --- |
-| Vague feature idea, product request, or unclear requirement needs a PRD/spec | Exploration / Full / Policy | `skills/product-requirements-writer/SKILL.md` |
-| PRD, issue, spec, or acceptance criteria needs implementation tasks | Exploration / Full / Policy | `skills/implementation-task-planner/SKILL.md` |
+| Vague feature idea, product request, or unclear requirement needs a PRD/spec | Exploration / Full / Policy | `@spec-planner` |
+| PRD, issue, spec, or acceptance criteria needs implementation tasks | Exploration / Full / Policy | `@spec-planner` |
 | Executing an existing implementation plan with multiple mostly independent tasks using delegated subagents or isolated worker sessions | Full / Debugging / Policy | `skills/subagent-driven-development/SKILL.md` |
-| Bug, regression, failing test, failing CI/build/lint/type-check, or unexpected behavior | Debugging | `skills/systematic-debugging/SKILL.md` |
-| Reviewing a PR, branch, diff, or local changes | Review | `skills/code-reviewer/SKILL.md` |
-| Writing, changing, or reviewing tests/eval scenarios | Full / Review | `skills/test-reviewer/SKILL.md` |
-| Implementation must be checked against a written spec/PRD | Full / Review | `skills/spec-reviewer/SKILL.md` |
+| Bug, regression, failing test, failing CI/build/lint/type-check, or unexpected behavior | Debugging | `@debugger` |
+| Reviewing a PR, branch, diff, or local changes | Review | `@code-reviewer` |
+| Writing, changing, or reviewing tests/eval scenarios | Full / Review | `@test-reviewer` |
+| Implementation must be checked against a written spec/PRD | Full / Review | `@spec-planner` |
 | Imports, exports, package boundaries, folders, services, shared utilities, or dependency direction change | Boundary / Review | `skills/architecture-boundary-reviewer/SKILL.md` |
 | TypeScript/JavaScript refactor, cleanup, shared utilities, dead-code, duplication, complexity, or static-analysis health concern | Full / Review | `skills/codebase-health-reviewer/SKILL.md` |
 | Persistence, external services, async jobs, auth/security/privacy, infra/config/deploy, critical user paths, performance/scale, or cross-service compatibility | Full / Debugging / Review | `skills/production-readiness-reviewer/SKILL.md` |
@@ -190,12 +190,12 @@ Required directives:
 
 Required skills:
 
-- `skills/product-requirements-writer/SKILL.md` when turning a feature idea or vague request into a PRD/spec before planning
-- `skills/implementation-task-planner/SKILL.md` when turning a PRD/spec/issue into an implementation task list
+- `@spec-planner` when turning a feature idea or vague request into a PRD/spec before planning
+- `@spec-planner` when turning a PRD/spec/issue into an implementation task list
 - `skills/subagent-driven-development/SKILL.md` when executing an existing implementation plan through delegated subagents or isolated worker sessions
 - `skills/self-audit/SKILL.md` after REFACTOR for Full Path work
-- `skills/test-reviewer/SKILL.md` when tests are added or substantially changed
-- `skills/spec-reviewer/SKILL.md` when reviewing implementation against a written spec or preparing spec-governed work for merge
+- `@test-reviewer` when tests are added or substantially changed
+- `@spec-planner` when reviewing implementation against a written spec or preparing spec-governed work for merge
 - `skills/production-readiness-reviewer/SKILL.md` before merge/review when a change touches persistence, external services, async jobs, auth/security/privacy, infra/config/deploy, critical user paths, performance/scale, or cross-service compatibility
 - `skills/harness-hooks-reviewer/SKILL.md` when the implementation adds or changes agent harness hooks or deterministic agent automation
 - `skills/mcp-integration-reviewer/SKILL.md` when the implementation adds or changes MCP servers/tools, agent tool schemas, or agent-accessible internal API bridges
@@ -212,7 +212,7 @@ Use for:
 
 Required:
 
-- `skills/systematic-debugging/SKILL.md`
+- `@debugger`
 - reproduce the failure before changing code
 - add or identify a failing regression test when behavior changed
 - use `directives/test-driven-development.md` for the fix when production behavior changes
@@ -261,9 +261,9 @@ Use when the user asks to review a PR, branch, diff, or local changes.
 
 Required skills:
 
-- `skills/code-reviewer/SKILL.md` for baseline PR/branch/diff/local-change review
-- `skills/test-reviewer/SKILL.md` for tests
-- `skills/spec-reviewer/SKILL.md` for spec-backed work
+- `@code-reviewer` for baseline PR/branch/diff/local-change review
+- `@test-reviewer` for tests
+- `@spec-planner` for spec-backed work
 - `skills/architecture-boundary-reviewer/SKILL.md` for imports/exports/packages/shared code
 - `skills/codebase-health-reviewer/SKILL.md` for TypeScript/JavaScript refactors, cleanup, shared utilities, or Fallow-relevant changes
 - `skills/production-readiness-reviewer/SKILL.md` for production-sensitive changes involving persistence, external services, async jobs, auth/security/privacy, infra/config/deploy, critical user paths, performance/scale, or cross-service compatibility
@@ -281,8 +281,8 @@ Required:
 
 - `directives/exploration-mode.md`
 - `directives/codebase-navigation.md` when repo context is needed
-- `skills/product-requirements-writer/SKILL.md` when the exploration output is a PRD/spec
-- `skills/implementation-task-planner/SKILL.md` when the exploration output is an implementation task list
+- `@spec-planner` when the exploration output is a PRD/spec
+- `@spec-planner` when the exploration output is an implementation task list
 
 Do not edit files during Exploration Path unless the user explicitly switches to
 implementation. Use `directives/context-handoff.md` when exploration produces decisions, constraints, or risks that an implementation session should inherit.

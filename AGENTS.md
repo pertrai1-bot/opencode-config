@@ -13,9 +13,27 @@ Do not use Context7 for refactoring, business-logic debugging, code review, or g
 
 ---
 
-## Skills - Progressive Disclosure
+## Agents And Skills - Progressive Disclosure
 
-Skills are reusable knowledge packages. Load them on demand when a workflow is active or when the task needs the full protocol, checklist, output format, or forbidden-pattern guidance.
+Agents own SDLC stages. Skills are reusable knowledge packages loaded on demand when a workflow is active or when a stage needs the full protocol, checklist, output format, or forbidden-pattern guidance.
+
+### Installed SDLC Agents
+
+- `spec-planner` - Create OpenSpec-style PRDs, proposals, design notes, implementation tasks, spec deltas, and spec reviews before development.
+- `build` - Apply accepted specs and implementation tasks to code.
+- `code-reviewer` - Review PRs, branches, diffs, or local changes for bugs, regressions, security, maintainability, and merge risk.
+- `debugger` - Reproduce failures, localize root causes, implement targeted fixes with permission, and prove regressions are fixed.
+- `test-reviewer` - Review tests, TDD cases, eval scenarios, assertions, mocks, coverage, brittleness, and flakiness.
+
+### SDLC Flow
+
+1. `spec-planner` writes or updates specs under `openspec/` and produces a handoff.
+2. `build` implements the accepted tasks from the spec handoff.
+3. `test-reviewer` checks test quality when tests or eval scenarios are material.
+4. `code-reviewer` reviews the implementation for merge risk.
+5. `debugger` handles bugs, failing gates, regressions, or unexpected behavior.
+
+Use `context-handoff` when moving work between agents, sessions, or major phases.
 
 ### When to Load a Skill
 
@@ -26,9 +44,6 @@ Skills are reusable knowledge packages. Load them on demand when a workflow is a
 
 ### Installed Workflow Skills
 
-- `product-requirements-writer` - Turn rough feature ideas, vague requirements, or product requests into a concrete PRD/spec before implementation planning.
-- `implementation-task-planner` - Turn a PRD, issue, spec, or acceptance criteria into an executable task list with likely files, tests, validation steps, and checkpoints.
-- `specification-driven-development` - Use the full spec-first protocol for features or cross-cutting changes where build-and-see would risk rework.
 - `adaptive-routing` - Select the lightest safe workflow path for the task.
 - `task-framing` - Frame non-trivial, ambiguous, high-risk, or cross-cutting tasks before substantial edits.
 - `verification` - Produce evidence of correctness before declaring work complete.
@@ -44,11 +59,7 @@ Skills are reusable knowledge packages. Load them on demand when a workflow is a
 
 ### Installed Specialist Skills
 
-- `code-reviewer` - Review PRs, branches, diffs, or local changes for bugs, regressions, security, maintainability, and merge risk.
-- `systematic-debugging` - Reproduce, localize, hypothesize, fix, and prove bugs or failures without guess-and-check edits.
 - `self-audit` - Run a pre-verification Jenga test, anomaly register, diff check, and scope reality check.
-- `spec-reviewer` - Review implementation against a written spec or PRD.
-- `test-reviewer` - Review tests and evaluation scenarios.
 - `architecture-boundary-reviewer` - Review imports, exports, package boundaries, dependency direction, and shared-code movement.
 - `codebase-health-reviewer` - Review TypeScript/JavaScript refactors, duplication, dead code, complexity, and static-analysis health.
 - `production-readiness-reviewer` - Review production-sensitive changes involving persistence, external services, async jobs, auth, security, privacy, deploy, performance, or critical paths.
@@ -60,7 +71,7 @@ Skills are reusable knowledge packages. Load them on demand when a workflow is a
 
 ## Workflows - Universal Rules
 
-These rules are always loaded. They provide routing and workflow selection only. Load the matching skill when the workflow is active and the summary is not enough.
+These rules are always loaded. They provide routing and workflow selection only. Use the matching agent or load the matching skill when the workflow is active and the summary is not enough.
 
 ### 1. Spec-Driven Development
 
@@ -68,10 +79,11 @@ Use for features, API additions, cross-cutting changes, unclear requirements, or
 
 Sequence:
 
-1. PRD: load `product-requirements-writer` to define the problem, goals, non-goals, users, scope, functional requirements, success criteria, and open questions.
-2. Tasks: load `implementation-task-planner` to turn the PRD/spec into small executable tasks with likely files, test targets, validation commands, and review checkpoints.
-3. Implementation: follow the task list. Use task framing before major edits and routing to select any additional workflow path.
-4. Verification: produce evidence that the implementation satisfies the spec before claiming completion.
+1. Planning: use `spec-planner` to define the problem, goals, non-goals, requirements, scenarios, design notes, implementation tasks, and spec deltas.
+2. Handoff: use `context-handoff` to pass accepted specs and tasks to the implementation agent.
+3. Implementation: use `build` to follow the accepted task list. Use task framing before major edits and routing to select any additional workflow path.
+4. Review: use `test-reviewer` for test quality when relevant and `code-reviewer` for merge-risk review.
+5. Verification: produce evidence that the implementation satisfies the spec before claiming completion.
 
 Do not implement before the specification exists when the task needs spec-driven development. The spec is the contract; code is the delivery.
 

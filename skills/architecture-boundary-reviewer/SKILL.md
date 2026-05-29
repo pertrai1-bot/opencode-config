@@ -14,7 +14,7 @@ architectural dependency graph. Your job is to catch illegal imports, boundary
 leaks, cycles, public API bypasses, and shared-code misuse before the change is
 merged.
 
-This skill complements test-reviewer and spec-reviewer. Tests can pass while the
+This skill complements `@test-reviewer` and `@spec-planner`. Tests can pass while the
 architecture gets worse. Boundary review asks: *does this change still fit the
 DAG?*
 

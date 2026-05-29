@@ -33,8 +33,7 @@ Load this skill when all are true:
 
 Do not load this skill when:
 
-- requirements are still vague — use `skills/product-requirements-writer/SKILL.md`
-  or `skills/implementation-task-planner/SKILL.md` first
+- requirements are still vague — use `@spec-planner` first
 - one coherent system model is required before any safe edit can happen
 - tasks would edit the same files concurrently or compete for the same mutable
   resources
@@ -150,9 +149,9 @@ For non-trivial delegated implementation, review in this order:
 Use existing routed reviewer skills only when their normal routing triggers match
 the touched surface or risk:
 
-- `skills/spec-reviewer/SKILL.md` for spec-governed work
-- `skills/test-reviewer/SKILL.md` for tests and eval scenarios
-- `skills/code-reviewer/SKILL.md` for baseline diff review when a PR, branch,
+- `@spec-planner` for spec-governed work
+- `@test-reviewer` for tests and eval scenarios
+- `@code-reviewer` for baseline diff review when a PR, branch,
   local diff, or review checkpoint is in scope
 - `skills/architecture-boundary-reviewer/SKILL.md` for imports, exports, moves,
   package boundaries, or shared utilities
