@@ -4,7 +4,7 @@ This document tracks the remaining work for turning this opencode config into a 
 
 ## Current State
 
-Phase 1 is implemented. At the time this tracker was created, `git status --short` showed only `PHASES.md` as untracked.
+Phase 1 and Phase 2 are implemented. Phase 2 added the static context system under `context/`.
 
 Files produced or updated during this work:
 
@@ -13,6 +13,7 @@ Files produced or updated during this work:
 - `skills/task-management/` — new skill, router, and CLI for persistent task tracking in `.planning/tasks/`.
 - `README.md` — initial root orientation for this config.
 - `PHASES.md` — this tracker.
+- `context/` — reusable context navigation, system summaries, and project-intelligence docs.
 
 Verification already performed for Phase 1:
 
@@ -50,27 +51,27 @@ Follow-up ideas:
 
 ## Phase 2 — Context System
 
-Status: Next
+Status: Done
 
 Goal: Organize reusable knowledge so agents can discover, harvest, compact, and improve project context over time.
 
-Proposed atomic tasks:
+Completed:
 
-1. Create `.opencode/context/` or equivalent global context structure for this config.
-2. Add core context-system guidance based on Minimal Viable Information (MVI): concise concepts, bullets, examples, and links.
-3. Add navigation files that let agents find context without loading everything.
-4. Create `project-intelligence/` docs for business domain, technical domain, decisions, and living notes.
-5. Decide whether existing `rules/angular/` content should move into the new context structure or remain where it is for now.
-6. Add a lightweight context-manager skill only after the static context structure is useful.
+1. Created `context/` as the root context structure for this config.
+2. Added MVI-based context guidance with concise concepts, bullets, examples, and links.
+3. Added `context/INDEX.md` and system navigation files so agents can find context without loading everything.
+4. Created `context/project-intelligence/` for durable decisions and reusable patterns.
+5. Decided existing `rules/angular/` content remains in `rules/` for now.
+6. Deferred a lightweight context-manager skill until the static context structure proves useful.
 
 Open decisions:
 
-- Whether context should live under `.opencode/context/`, `context/`, or another root-local directory in this global config repo.
-- Whether Angular rules should be migrated during Phase 2 or deferred.
+- Context lives under `context/` because this repository is itself the opencode config.
+- Angular rules remain under `rules/angular/` for now.
 
 ## Phase 3 — Profiles
 
-Status: Planned
+Status: Next
 
 Goal: Support different operating modes without loading the same full context for every task.
 
@@ -130,14 +131,14 @@ Start here:
 1. Read `README.md`, `AGENTS.md`, and this file.
 2. Check `git status --short` to see the current uncommitted state.
 3. If reviewing Phase 1, inspect `skills/task-management/`, `AGENTS.md`, and `agent/spec-planner.md`.
-4. If continuing implementation, start Phase 2 with the Context System.
+4. If continuing implementation, start Phase 3 with Profiles.
 
 Recommended next action:
 
-- Review Phase 1 diff for any naming or workflow concerns, then begin Phase 2 by creating the minimal context-system structure and navigation docs.
+- Review Phase 2 context docs for naming or workflow concerns, then begin Phase 3 by confirming profile mechanics compatible with opencode config loading.
 
 Do not:
 
 - Do not replace spec-planner task planning with task-management; task-management is only the runtime tracking layer.
-- Do not move Angular rules until the Phase 2 context layout decision is made.
+- Do not move Angular rules unless a later phase explicitly revisits the `rules/` boundary.
 - Do not add profile-loading behavior until opencode-compatible profile mechanics are confirmed.

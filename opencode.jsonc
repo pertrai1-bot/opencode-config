@@ -22,6 +22,8 @@
           "git show*": "allow",
           "ls": "allow",
           "ls *": "allow",
+          "mkdir *": "allow",
+          "wc *": "allow",
         },
       },
     },

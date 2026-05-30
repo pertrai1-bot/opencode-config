@@ -50,6 +50,17 @@ Important workflow skills include:
 
 Specialist skills cover boundaries, production readiness, MCP integrations, harness hooks, self-audits, and codebase health.
 
+## Context
+
+Reusable context for this config lives under `context/`.
+
+- Start with `context/INDEX.md` to find the smallest relevant context module.
+- Use `context/system/` for SDLC, routing, conventions, and task-tracking summaries.
+- Use `context/project-intelligence/` for durable config decisions and reusable maintenance patterns.
+- Domain-specific technical rules remain under `rules/`, including `rules/angular/`.
+
+Context files summarize and route to canonical sources; they do not replace `AGENTS.md`, skills, agents, commands, or rules.
+
 ## Task Tracking
 
 The task-management skill stores execution state in `.planning/tasks/`. It complements `spec-planner`; it does not replace planning.
@@ -117,7 +128,6 @@ Configured MCP integrations are defined in `opencode.jsonc`.
 
 Near-term improvements planned for this config:
 
-- Context system for organizing reusable project and workflow knowledge.
 - Profiles for switching between lightweight, developer, architect, and full team modes.
 - More operational commands for validation, cleanup, and repo health.
 - Better documentation once the core concepts settle.

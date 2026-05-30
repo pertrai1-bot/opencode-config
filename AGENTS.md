@@ -43,6 +43,10 @@ Use `context-handoff` when moving work between agents, sessions, or major phases
 - When the task needs a detailed checklist, artifact template, or review rubric.
 - When the task has moved from a light path into a specialized path such as spec writing, implementation planning, debugging, or review.
 
+### Context System
+
+Reusable config knowledge lives under `context/`. Use `context/INDEX.md` before unfamiliar config work, workflow edits, or session resumption to find the smallest relevant context file. Do not load the whole context tree by default; follow the index and read only matching modules.
+
 ### Installed Workflow Skills
 
 - `adaptive-routing` - Select the lightest safe workflow path for the task.
