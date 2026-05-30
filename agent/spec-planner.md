@@ -81,6 +81,33 @@ Each implementation task should include:
 
 Prefer thin vertical slices over horizontal layers. Avoid speculative abstractions.
 
+When task-management will track execution, write tasks in a machine-readable sequence format. Dependencies must reference prior task sequence numbers, not prose descriptions. `suggested_agent` must be one of `build`, `code-reviewer`, `debugger`, or `test-reviewer`.
+
+```md
+### 01 - Implement authentication middleware
+
+- Objective: Replace session middleware with JWT validation.
+- Suggested agent: build
+- Depends on: none
+- Parallel: false
+- Context files:
+  - openspec/changes/auth-refactor/proposal.md
+- Likely files:
+  - src/middleware/auth.ts
+- Acceptance criteria:
+  - Invalid tokens return 401
+  - Valid tokens attach user identity
+- Deliverables:
+  - src/middleware/auth.ts
+  - src/middleware/auth.test.ts
+- Validation commands:
+  - npm test -- auth
+- Review checkpoints:
+  - Auth behavior matches the spec scenarios
+- Risks or assumptions:
+  - Existing session behavior is intentionally replaced
+```
+
 ## Spec Review Mode
 
 When asked to review implementation against a spec:

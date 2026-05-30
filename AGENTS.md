@@ -28,10 +28,11 @@ Agents own SDLC stages. Skills are reusable knowledge packages loaded on demand 
 ### SDLC Flow
 
 1. `spec-planner` writes or updates specs under `openspec/` and produces a handoff.
-2. `build` implements the accepted tasks from the spec handoff.
-3. `test-reviewer` checks test quality when tests or eval scenarios are material.
-4. `code-reviewer` reviews the implementation for merge risk.
-5. `debugger` handles bugs, failing gates, regressions, or unexpected behavior.
+2. `task-management` hydrates accepted `tasks.md` files into `.planning/tasks/` when execution begins, so progress can be queried across sessions.
+3. `build` implements the accepted tasks from the tracked spec handoff.
+4. `test-reviewer` checks test quality when tests or eval scenarios are material.
+5. `code-reviewer` reviews the implementation for merge risk.
+6. `debugger` handles bugs, failing gates, regressions, or unexpected behavior.
 
 Use `context-handoff` when moving work between agents, sessions, or major phases.
 
@@ -56,6 +57,7 @@ Use `context-handoff` when moving work between agents, sessions, or major phases
 - `test-driven-development` - Drive behavior changes through red-green-refactor tracer bullets.
 - `type-driven-development` - Use types and public contracts to constrain implementation.
 - `workspace-isolation` - Decide when to protect shared checkouts with isolated workspaces.
+- `task-management` - Track spec-planner tasks in `.planning/tasks/`, query active work, resolve dependencies, and persist execution status across sessions.
 
 ### Installed Specialist Skills
 
@@ -80,12 +82,14 @@ Use for features, API additions, cross-cutting changes, unclear requirements, or
 Sequence:
 
 1. Planning: use `spec-planner` to define the problem, goals, non-goals, requirements, scenarios, design notes, implementation tasks, and spec deltas.
-2. Handoff: use `context-handoff` to pass accepted specs and tasks to the implementation agent.
-3. Implementation: use `build` to follow the accepted task list. Use task framing before major edits and routing to select any additional workflow path.
-4. Review: use `test-reviewer` for test quality when relevant and `code-reviewer` for merge-risk review.
-5. Verification: produce evidence that the implementation satisfies the spec before claiming completion.
+2. Task tracking: when execution begins, use `task-management` to hydrate the accepted `tasks.md` into `.planning/tasks/<feature>/` and query `next`, `blocked`, or `parallel` before delegating work.
+3. Handoff: use `context-handoff` to pass accepted specs, tracked task state, and required context to the implementation agent.
+4. Implementation: use `build` to follow the accepted tracked task list. Use task framing before major edits and routing to select any additional workflow path.
+5. Review: use `test-reviewer` for test quality when relevant and `code-reviewer` for merge-risk review.
+6. Verification: produce evidence that the implementation satisfies the spec before claiming completion.
 
 Do not implement before the specification exists when the task needs spec-driven development. The spec is the contract; code is the delivery.
+For tracked spec work, mark each task `in_progress` before implementation and `completed` with a useful completion summary after verification for that task.
 
 ### 2. Adaptive Routing
 
