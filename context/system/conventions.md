@@ -15,10 +15,13 @@ Use lightweight frontmatter:
 type: system-context | project-intelligence | index
 purpose: one-line purpose
 triggers: when agents should read this file
+last-reviewed: YYYY-MM-DD # optional usefulness signal
 ---
 ```
 
 Keep context MVI-compliant: concise concepts, short bullets, concrete examples, and links to canonical sources.
+
+Use `last-reviewed` only when an agent actually reviews the file for usefulness, freshness, or MVI fit. Do not update the date just because the file appeared in a search result.
 
 ## Skills
 
@@ -59,6 +62,12 @@ Keep context MVI-compliant: concise concepts, short bullets, concrete examples, 
 - Use decisions for durable config choices with real alternatives.
 - Use patterns for repeated reusable practices discovered during work.
 - Do not store transient handoffs or local session notes here.
+
+## Improvement Artifacts
+
+- Path: `docs/ERRORS.md` for recurring, non-obvious mistakes that should become guardrails.
+- Path: `docs/decisions/YYYY-MM-DD-<domain>.md` for durable repo/process decisions with real alternatives.
+- Path: `.planning/evals/*.md` for manual workflow smoke-test protocols.
 
 ## Restart Requirement
 

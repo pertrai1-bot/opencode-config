@@ -4,7 +4,7 @@ This document tracks the remaining work for turning this opencode config into a 
 
 ## Current State
 
-Phase 1, Phase 2, Phase 3, and Phase 4 are implemented. Phase 4 added operational commands for task status, repo validation, commit preparation, cleanup scans, and context audits.
+Phase 1, Phase 2, Phase 3, Phase 4, and Phase 5 are implemented. Phase 4 added operational commands for task status, repo validation, commit preparation, cleanup scans, and context audits. Phase 5 added durable improvement-loop storage, command audits for error memory and decisions, context usefulness signals, and a manual task-management eval protocol.
 
 Files produced or updated during this work:
 
@@ -21,6 +21,9 @@ Files produced or updated during this work:
 - `command/commit.md` — cautious config-aware commit preparation without staging or committing.
 - `command/clean.md` — non-destructive cleanup scan for completed tasks, stale handoffs, summaries, temp files, and context size candidates.
 - `command/context-audit.md` — non-destructive context navigation, MVI, and harvest-candidate audit.
+- `docs/ERRORS.md` — durable recurring-error memory destination.
+- `docs/decisions/` — structured decision-log destination with Phase 5 decision record.
+- `.planning/evals/task-management-smoke-test.md` — manual eval protocol for task-management state transitions.
 
 Verification already performed for Phase 1:
 
@@ -28,6 +31,13 @@ Verification already performed for Phase 1:
 - Smoke test used isolated `OPENCODE_TASK_ROOT` temp storage.
 - Smoke test verified `init`, `status`, `next`, `blocked`, `start`, `complete`, `parallel`, `deps`, and `validate`.
 - Smoke test reached `Progress: 2/2 (100%)`.
+
+Verification performed for Phase 5:
+
+- `git diff --check` completed with no whitespace errors.
+- Phase 5 artifact existence check verified `docs/ERRORS.md`, `docs/decisions/README.md`, `docs/decisions/2026-05-30-agent-improvement-loop.md`, and `.planning/evals/task-management-smoke-test.md` exist.
+- Targeted content search confirmed references to `docs/ERRORS.md`, `docs/decisions/`, `.planning/evals/`, `last-reviewed`, and the completion-boundary checklist across the updated docs and commands.
+- `bash skills/task-management/router.sh help` runs successfully.
 
 Important restart note:
 
@@ -134,7 +144,7 @@ Follow-up ideas:
 
 ## Phase 5 — Agent Improvement Loop
 
-Status: Planned
+Status: Done
 
 Goal: Build durable feedback loops so agent behavior improves from use.
 
@@ -145,9 +155,26 @@ Candidate work:
 - Add evaluation or smoke-test patterns for key agent workflows.
 - Track which context is useful and compact or remove stale context.
 
+Completed:
+
+1. Created `docs/ERRORS.md` as the durable error-memory destination.
+2. Created `docs/decisions/README.md` and recorded the Phase 5 decision to keep the improvement loop lightweight, command-integrated, and markdown-first.
+3. Added `.planning/evals/task-management-smoke-test.md` as the first manual workflow eval protocol.
+4. Extended `validate-repo` with improvement-loop checks for error memory, decisions, and eval protocols.
+5. Extended `clean` with stale error-memory, decision, and pattern hygiene scans.
+6. Extended `context-audit` with context usefulness signals and stale `last-reviewed` checks.
+7. Updated `AGENTS.md` with completion-boundary prompts for verification, error memory, decision logs, and handoffs.
+8. Updated conventions and README documentation for improvement-loop artifacts.
+
 Open decisions:
 
-- Whether to implement prompt variants and eval-runner infrastructure now or defer until the core SDLC flow stabilizes.
+- Prompt variants and executable eval-runner infrastructure are deferred until repeated markdown eval usage proves the need.
+
+Follow-up ideas:
+
+- Add more markdown eval protocols for routing, verification-summary quality, and review workflows after real usage exposes stable scenarios.
+- Consider a dedicated `improvement-audit` command only if the added checks make existing commands too broad.
+- Consider an executable eval runner if manual `.planning/evals/` protocols become repetitive or inconsistent.
 
 ## Next Session Starting Point
 
@@ -156,11 +183,11 @@ Start here:
 1. Read `README.md`, `AGENTS.md`, and this file.
 2. Check `git status --short` to see the current uncommitted state.
 3. If reviewing Phase 1, inspect `skills/task-management/`, `AGENTS.md`, and `agent/spec-planner.md`.
-4. If continuing implementation, start Phase 5 with the Agent Improvement Loop.
+4. If continuing implementation, start the next planned phase or expand Phase 5 with additional markdown eval protocols.
 
 Recommended next action:
 
-- Begin Phase 5 by choosing the smallest useful feedback loop, likely durable error-memory capture or a lightweight validation/evaluation pattern for common agent workflows.
+- Run `/validate-repo`, `/context-audit`, or the `.planning/evals/task-management-smoke-test.md` protocol after making future workflow changes.
 
 Do not:
 

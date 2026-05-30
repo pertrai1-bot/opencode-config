@@ -142,11 +142,26 @@ Use after implementation and before claiming completion, opening a PR, or handin
 
 Verification must provide evidence, not assertions. Include the relevant functional proof, test proof, integration proof, boundary proof, documentation proof, and scope-control proof. In normal opencode sessions, put the verification summary in the final response or PR body if a PR is created.
 
+Before claiming task completion:
+
+- Confirm fresh verification evidence was produced after the last change.
+- Update `docs/ERRORS.md` if a corrected mistake meets the `error-memory` criteria.
+- Write a decision log in `docs/decisions/` if the task set or changed durable repo policy, process, architecture, or cross-cutting conventions with real alternatives.
+- Refresh the handoff capsule when work spans sessions, agents, or major workflow phases.
+
 ### 5. Error Memory
 
 Use when a mistake is likely to recur and prevention is non-obvious.
 
 Write durable error memory only when the mistake reached a commit, PR, or significant draft; a human corrected it or verification caught it; it is likely to recur; and the prevention strategy is not obvious. Store reusable prevention knowledge, not blame or one-off trivia.
+
+Store qualifying entries in `docs/ERRORS.md`. During compaction or completion, check whether a corrected mistake should become an error-memory entry before discarding task context.
+
+### 5a. Decision Logs
+
+Use when a task changes durable repo policy, process, architecture, contributor workflow, or cross-cutting conventions.
+
+Write decision logs only when plausible alternatives existed and the reasoning would not be obvious from the diff. Store qualifying entries in `docs/decisions/YYYY-MM-DD-<domain>.md` using `templates/decision-log.md`.
 
 ### 6. Exploration Mode
 

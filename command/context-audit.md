@@ -27,6 +27,14 @@ When invoked with no arguments, run a read-only context audit.
 - Report files over 200 lines as MVI review candidates.
 - Recommend splitting, compacting, or moving verbose material to a reference file only when useful.
 
+### Usefulness Signals
+
+- Check context frontmatter for optional `last-reviewed: YYYY-MM-DD`.
+- Report context files missing `last-reviewed` as adoption candidates, not errors.
+- Report context files with `last-reviewed` older than 90 days as review candidates.
+- Check `context/project-intelligence/patterns/*.md` for `status: active | retired | superseded`.
+- Report active patterns that are not referenced from `context/INDEX.md`, `README.md`, `AGENTS.md`, `command/*.md`, `profiles/*.md`, or `skills/*/SKILL.md` as possible usefulness-review candidates.
+
 ### Harvest Candidates
 
 - Scan the repository root and common working folders for summary-like files:
@@ -55,6 +63,9 @@ When invoked with no arguments, run a read-only context audit.
 - Possible orphans: <count>
 - Files over 200 lines: <count>
 - Harvest candidates: <count>
+- Missing last-reviewed markers: <count>
+- Stale last-reviewed markers: <count>
+- Pattern usefulness candidates: <count>
 
 ## Findings
 
@@ -69,4 +80,5 @@ When invoked with no arguments, run a read-only context audit.
 
 - Do not create, move, compact, or delete context files.
 - Keep recommendations aligned with the MVI convention in `context/system/conventions.md`.
+- Treat missing or stale usefulness signals as prompts for review, not reasons to delete context.
 - If deeper context restructuring is needed, recommend a separate planned change rather than doing it inside this audit.

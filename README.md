@@ -62,6 +62,20 @@ Reusable context for this config lives under `context/`.
 
 Context files summarize and route to canonical sources; they do not replace `AGENTS.md`, skills, agents, commands, or rules.
 
+## Improvement Loop
+
+Durable feedback artifacts live in tracked project files:
+
+- `docs/ERRORS.md` records recurring, non-obvious mistakes that should become guardrails.
+- `docs/decisions/` records durable repo, process, architecture, and convention decisions.
+- `.planning/evals/` stores manual workflow smoke-test protocols.
+
+Existing operational commands audit these artifacts:
+
+- `/validate-repo` checks required storage, decision shape, error-memory shape, and eval protocol presence.
+- `/clean` reports stale error-memory, decision, pattern, and cleanup candidates without modifying files.
+- `/context-audit` reports context usefulness signals such as missing or stale `last-reviewed` markers.
+
 ## Profiles
 
 Operating profiles live under `profiles/` and keep context loading proportional to the task.
@@ -101,6 +115,8 @@ Supported commands:
 - `validate` checks task integrity.
 
 Task dependencies use sequence numbers such as `01`, `02`, and `03`. `suggested_agent` is constrained to `build`, `code-reviewer`, `debugger`, or `test-reviewer`.
+
+Manual workflow evals live under `.planning/evals/`. Start with `.planning/evals/task-management-smoke-test.md` when changing task-management behavior or task-status guidance.
 
 ## Commands
 
