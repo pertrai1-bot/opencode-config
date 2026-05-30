@@ -69,6 +69,14 @@ Use `last-reviewed` only when an agent actually reviews the file for usefulness,
 - Path: `docs/decisions/YYYY-MM-DD-<domain>.md` for durable repo/process decisions with real alternatives.
 - Path: `.planning/evals/*.md` for manual workflow smoke-test protocols.
 
+## Terminal Execution and Pagers
+
+When executing auto-allowed shell commands (such as git operations), agents must ensure execution is strictly non-interactive to prevent terminal hangs:
+
+- **Bypass Pagers:** Always disable interactive pagination by using `--no-pager` or piping directly to cat (e.g., `git --no-pager diff`, `git log -n 10`, or `git diff | cat`).
+- **Non-Interactive Flags:** Use flags like `-y`, `--yes`, `--quiet`, or `--non-interactive` on package manager and build tools to avoid waiting for human input.
+- **Git Nexus MCP:** Prioritize using the configured `gitnexus` MCP tools for repository queries and diffs over executing raw git commands in the shell.
+
 ## Restart Requirement
 
 After changing `opencode.jsonc`, agent files, skill files, plugin files, or other config-time files, restart opencode so the running session loads the changes.
