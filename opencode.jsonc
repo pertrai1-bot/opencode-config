@@ -29,8 +29,8 @@
     "auto": true,
     "prune": true,
     "keep": {
-      "turns": 2,
-      "tokens": 2000
+      "turns": 4,
+      "tokens": 4000
     },
     "buffer": 8000
   },
@@ -70,7 +70,8 @@
           "git checkout*": "allow",
           "git restore*": "allow",
           "git commit*": "allow",
-          "git clean*": "allow",
+          "git clean --dry-run*": "allow",
+          "git clean -n*": "allow",
           
           // Basic Navigation and Information Retrieval
           "ls": "allow",
@@ -79,7 +80,6 @@
           "wc *": "allow",
           "cat *": "allow",
           "grep *": "allow",
-          "find *": "allow",
           
           // Dependency Management (TypeScript/Node JS Stack)
           "npm install*": "allow",
@@ -129,7 +129,7 @@
     },
     "playwright": {
       "type": "local",
-      "command": ["npx", "@playwright/mcp@latest"],
+      "command": ["npx", "-y", "@playwright/mcp@0.2.2"],
       "enabled": true
     },
     "memory": {
