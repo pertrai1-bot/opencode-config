@@ -57,7 +57,7 @@ The task-management skill stores execution state in `.planning/tasks/`. It compl
 Typical flow:
 
 ```bash
-bash ~/.config/opencode/skills/task-management/router.sh init <feature> --from-spec openspec/changes/<change-id>/tasks.md
+bash ~/.config/opencode/skills/task-management/router.sh init <feature> --from-spec .planning/changes/<change-id>/tasks.md
 bash ~/.config/opencode/skills/task-management/router.sh status <feature>
 bash ~/.config/opencode/skills/task-management/router.sh next <feature>
 bash ~/.config/opencode/skills/task-management/router.sh start <feature> 01

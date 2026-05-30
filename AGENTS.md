@@ -27,7 +27,7 @@ Agents own SDLC stages. Skills are reusable knowledge packages loaded on demand 
 
 ### SDLC Flow
 
-1. `spec-planner` writes or updates specs under `openspec/` and produces a handoff.
+1. `spec-planner` writes or updates specs under `.planning/` and produces a handoff.
 2. `task-management` hydrates accepted `tasks.md` files into `.planning/tasks/` when execution begins, so progress can be queried across sessions.
 3. `build` implements the accepted tasks from the tracked spec handoff.
 4. `test-reviewer` checks test quality when tests or eval scenarios are material.

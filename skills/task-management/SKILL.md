@@ -62,17 +62,17 @@ If this skill is copied into a project-local `.opencode/skills/` directory, run 
 
 ## Hydration Format
 
-The `init` command expects task headings in `tasks.md` like this:
+The `init` command expects executable task cards in `tasks.md`. Task cards may use markdown headings or checkbox labels. Prefer checkbox labels when the spec-planner produced a human-trackable checklist:
 
 ```md
-### 01 - Implement authentication middleware
+- [ ] 01 - Implement authentication middleware
 
 - Objective: Replace session middleware with JWT validation.
 - Suggested agent: build
 - Depends on: none
 - Parallel: false
 - Context files:
-  - openspec/changes/auth-refactor/proposal.md
+  - .planning/changes/auth-refactor/prd.md
 - Likely files:
   - src/middleware/auth.ts
 - Acceptance criteria:
@@ -89,7 +89,7 @@ The `init` command expects task headings in `tasks.md` like this:
   - Existing session behavior is intentionally replaced
 ```
 
-Dependency references must use task sequence numbers, such as `Depends on: 01, 03`.
+Dependency references must use task sequence numbers, such as `Depends on: 01, 03`. Use stable integer sequence numbers such as `00`, `01`, and `02`; do not use decimal checklist labels like `1.1` in hydratable task files.
 
 ## Workflow
 
@@ -97,7 +97,7 @@ Dependency references must use task sequence numbers, such as `Depends on: 01, 0
 2. Initialize tracking:
 
    ```bash
-   bash ~/.config/opencode/skills/task-management/router.sh init auth-refactor --from-spec openspec/changes/auth-refactor/tasks.md
+   bash ~/.config/opencode/skills/task-management/router.sh init auth-refactor --from-spec .planning/changes/auth-refactor/tasks.md
    ```
 
 3. Find the next executable work:
@@ -142,7 +142,7 @@ Dependency references must use task sequence numbers, such as `Depends on: 01, 0
   "completed_count": 0,
   "created_at": "2026-05-29T00:00:00.000Z",
   "completed_at": null,
-  "spec_source": "openspec/changes/auth-refactor/tasks.md"
+  "spec_source": ".planning/changes/auth-refactor/tasks.md"
 }
 ```
 
