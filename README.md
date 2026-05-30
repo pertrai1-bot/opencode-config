@@ -7,6 +7,7 @@ This README is an initial orientation. Detailed reference docs will be added lat
 ## Current Goals
 
 - Route work to the right agent automatically based on task type and risk.
+- Start from the lightweight `essential` profile, then escalate to stronger profiles when the request requires them.
 - Use `spec-planner` for unclear, cross-cutting, or feature-level work before implementation begins.
 - Track accepted spec tasks in `.planning/tasks/` so active, blocked, and completed work can be queried across sessions.
 - Preserve decisions, lessons, and project-specific patterns so future agents improve over time.
@@ -61,6 +62,17 @@ Reusable context for this config lives under `context/`.
 
 Context files summarize and route to canonical sources; they do not replace `AGENTS.md`, skills, agents, commands, or rules.
 
+## Profiles
+
+Operating profiles live under `profiles/` and keep context loading proportional to the task.
+
+- `essential` is the default for quick fixes, light docs, and focused verified edits.
+- `developer` is the full SDLC profile for feature work, behavior changes, tests, and refactors.
+- `architect` is reviewer-led for architecture, ADRs, boundaries, policy, and implementation contracts; it does not perform direct build work.
+- `full` makes every configured agent, skill, command, and context surface available when explicitly needed.
+
+Use `/profile` to inspect or change the active profile. The selected profile persists locally in `profiles/active-profile` until changed.
+
 ## Task Tracking
 
 The task-management skill stores execution state in `.planning/tasks/`. It complements `spec-planner`; it does not replace planning.
@@ -94,6 +106,7 @@ Task dependencies use sequence numbers such as `01`, `02`, and `03`. `suggested_
 
 Custom commands live under `command/`. Current commands are mostly workflow routing helpers, such as:
 
+- `profile`
 - `route-light`
 - `route-full`
 - `route-debug`
@@ -128,6 +141,5 @@ Configured MCP integrations are defined in `opencode.jsonc`.
 
 Near-term improvements planned for this config:
 
-- Profiles for switching between lightweight, developer, architect, and full team modes.
 - More operational commands for validation, cleanup, and repo health.
 - Better documentation once the core concepts settle.

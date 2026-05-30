@@ -8,6 +8,17 @@ triggers: choosing how to handle a task safely
 
 Use the lightest safe path that proves correctness.
 
+## Profile Selection
+
+| Profile | Use when | Escalates to |
+| --- | --- | --- |
+| `essential` | Default mode, quick fixes, light docs, trivial verified edits | `developer`, `architect` |
+| `developer` | Features, behavior changes, tests, refactors, tracked implementation | `architect`, `full` |
+| `architect` | Reviewer-led architecture, boundaries, ADRs, policy, design critique | `developer`, `full` |
+| `full` | Explicit all-tools mode or unusual cross-cutting work | De-escalate when possible |
+
+Read `profiles/README.md` when profile selection is unclear. If `profiles/active-profile` exists, treat it as the persisted local preference until `/profile` changes it.
+
 ## Route Table
 
 | Route | Use when | Typical tools |
@@ -38,6 +49,9 @@ Use the lightest safe path that proves correctness.
 
 ## Escalation Rules
 
+- Start from the active profile, defaulting to `essential`.
+- State profile escalation briefly when a request exceeds the active profile.
+- `architect` is reviewer-led and should hand off implementation to `developer`.
 - A quick user request does not downgrade safety for security, persistence, public APIs, or cross-service changes.
 - If a route changes mid-task, state the new route and load the needed context.
 - If a task spans phases, create a handoff instead of carrying stale chat history.

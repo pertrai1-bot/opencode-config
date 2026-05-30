@@ -47,6 +47,20 @@ Use `context-handoff` when moving work between agents, sessions, or major phases
 
 Reusable config knowledge lives under `context/`. Use `context/INDEX.md` before unfamiliar config work, workflow edits, or session resumption to find the smallest relevant context file. Do not load the whole context tree by default; follow the index and read only matching modules.
 
+### Operating Profiles
+
+Profiles live under `profiles/` and control how much SDLC machinery should be considered active for a task.
+
+- Default to `essential` when `profiles/active-profile` does not exist.
+- Treat `profiles/active-profile` as the persisted local profile selected by `/profile` when it exists.
+- Start with the active profile, then escalate only when the request requires more capability.
+- Use `essential` for quick fixes, light docs, routing, framing, and verification.
+- Use `developer` for features, behavior changes, tests, refactors, task-managed implementation, and full SDLC work.
+- Use `architect` for reviewer-led architecture, boundaries, ADRs, policy, design critique, and implementation contracts; do not use `build` for implementation in this profile.
+- Use `full` only when explicitly requested or when every configured agent, skill, command, and context surface is genuinely needed.
+
+Use `/profile` to inspect or change the active profile. When a task exceeds the active profile, state the escalation briefly and use the target profile's guidance.
+
 ### Installed Workflow Skills
 
 - `adaptive-routing` - Select the lightest safe workflow path for the task.
@@ -98,6 +112,13 @@ For tracked spec work, mark each task `in_progress` before implementation and `c
 ### 2. Adaptive Routing
 
 Use for every task. Pick the lightest safe path that still proves correctness.
+
+Profile routing:
+
+- `essential` is the default operating profile and should remain lightweight.
+- Escalate from `essential` to `developer` for substantial implementation work.
+- Escalate from `essential` or `developer` to `architect` when the task is primarily review, boundaries, architecture, ADR, or policy.
+- Do not de-escalate safety just because the active profile is lightweight.
 
 - Light Path: typo, docs wording, comments, formatting-only, or metadata changes with no behavior/build/test/runtime impact.
 - Full Path: new features, behavior changes, meaningful refactors, tests changed for behavior, type/API changes.

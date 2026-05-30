@@ -17,6 +17,7 @@ This repo is a personal opencode configuration for running AI agents like a smal
 - `command/` defines explicit command entry points.
 - `rules/` stores domain-specific rule packs.
 - `context/` stores reusable navigation and project-intelligence context.
+- `profiles/` defines operating modes and escalation guidance.
 
 ## Progressive Disclosure
 
@@ -30,5 +31,6 @@ This repo is a personal opencode configuration for running AI agents like a smal
 - New feature or unclear request: read `context/system/sdlc-overview.md`.
 - Route selection: read `context/system/routing-reference.md`.
 - Config artifact editing: read `context/system/conventions.md`.
+- Profile selection: read `profiles/README.md`.
 - Tracked spec execution: read `context/system/task-tracking.md`.
 - Durable config decision: read `context/project-intelligence/decisions/README.md`.

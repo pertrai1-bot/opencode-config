@@ -4,7 +4,7 @@ This document tracks the remaining work for turning this opencode config into a 
 
 ## Current State
 
-Phase 1 and Phase 2 are implemented. Phase 2 added the static context system under `context/`.
+Phase 1, Phase 2, and Phase 3 are implemented. Phase 3 added operating profiles under `profiles/` and a persistent `/profile` command.
 
 Files produced or updated during this work:
 
@@ -14,6 +14,8 @@ Files produced or updated during this work:
 - `README.md` — initial root orientation for this config.
 - `PHASES.md` — this tracker.
 - `context/` — reusable context navigation, system summaries, and project-intelligence docs.
+- `profiles/` — operating profile definitions for essential, developer, architect, and full modes.
+- `command/profile.md` — persistent profile inspection and switching command.
 
 Verification already performed for Phase 1:
 
@@ -71,7 +73,7 @@ Open decisions:
 
 ## Phase 3 — Profiles
 
-Status: Next
+Status: Done
 
 Goal: Support different operating modes without loading the same full context for every task.
 
@@ -84,14 +86,26 @@ Candidate profiles:
 
 Open decisions:
 
-- Confirm profile mechanism and file layout compatible with opencode config loading.
-- Decide whether profiles are documentation-only first or actively loaded by config/plugin support.
+- Profiles are documentation-driven because opencode does not provide a native `profiles` config key.
+- Default profile is `essential`; `/profile` persists explicit selection in `profiles/active-profile`.
+- `architect` is reviewer-led and does not use `build` for implementation.
+
+Completed:
+
+1. Added `profiles/README.md` as the profile registry and selection guide.
+2. Added `profiles/essential.md`, `profiles/developer.md`, `profiles/architect.md`, and `profiles/full.md`.
+3. Updated `AGENTS.md` with default profile, persisted active-profile behavior, and escalation rules.
+4. Updated context navigation and routing reference with profile-aware guidance.
+5. Added `/profile` command for inspection and persistent switching.
+6. Ignored `profiles/active-profile` as local machine state.
 
 ## Phase 4 — Operational Commands
 
-Status: Planned
+Status: Next
 
 Goal: Add practical commands that make the config easier to operate day to day.
+
+Review for consideration: https://github.com/darrenhinde/OpenAgentsControl/tree/main/.opencode/command
 
 Candidate commands:
 
@@ -131,14 +145,14 @@ Start here:
 1. Read `README.md`, `AGENTS.md`, and this file.
 2. Check `git status --short` to see the current uncommitted state.
 3. If reviewing Phase 1, inspect `skills/task-management/`, `AGENTS.md`, and `agent/spec-planner.md`.
-4. If continuing implementation, start Phase 3 with Profiles.
+4. If continuing implementation, start Phase 4 with Operational Commands.
 
 Recommended next action:
 
-- Review Phase 2 context docs for naming or workflow concerns, then begin Phase 3 by confirming profile mechanics compatible with opencode config loading.
+- Begin Phase 4 by prioritizing operational commands that fit the now-defined profile system.
 
 Do not:
 
 - Do not replace spec-planner task planning with task-management; task-management is only the runtime tracking layer.
 - Do not move Angular rules unless a later phase explicitly revisits the `rules/` boundary.
-- Do not add profile-loading behavior until opencode-compatible profile mechanics are confirmed.
+- Do not replace the documentation-driven profile model with config/plugin loading unless opencode-compatible mechanics are confirmed and the tradeoff is explicit.

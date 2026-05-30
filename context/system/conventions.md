@@ -40,6 +40,13 @@ Keep context MVI-compliant: concise concepts, short bullets, concrete examples, 
 - Frontmatter usually contains a short `description`.
 - Use commands as explicit entry points for workflow modes or repeatable procedures.
 
+## Profiles
+
+- Path: `profiles/<profile-name>.md`.
+- Use `profiles/README.md` as the registry and comparison table.
+- Keep profile files focused on included agents, skills, commands, context, behavior, and escalation rules.
+- Store the local active profile in `profiles/active-profile`; keep that file ignored by git.
+
 ## Rules
 
 - Path: `rules/<domain>/<topic>.md`.
