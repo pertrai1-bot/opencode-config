@@ -13,7 +13,7 @@ Use `developer` when the task needs the normal spec-driven implementation flow.
 
 - Agents: `spec-planner`, `build`, `code-reviewer`, `debugger`, and `test-reviewer`.
 - Skills: workflow skills, task-management, context-handoff, test-driven-development, type-driven-development, workspace-isolation, and verification.
-- Commands: `/route-full`, `/route-debug`, `/route-review`, `/tdd-cycle`, `/verify-summary`, `/context-handoff`, `/profile`.
+- Commands: `/route-full`, `/route-debug`, `/route-review`, `/tdd-cycle`, `/verify-summary`, `/context-handoff`, `/profile`, `/task-status`, `/validate-repo`, `/commit`, `/clean`, and `/context-audit`.
 - Context: `context/system/sdlc-overview.md`, `context/system/routing-reference.md`, `context/system/task-tracking.md`, and relevant project-intelligence files.
 
 ## Behavior

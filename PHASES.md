@@ -4,7 +4,7 @@ This document tracks the remaining work for turning this opencode config into a 
 
 ## Current State
 
-Phase 1, Phase 2, and Phase 3 are implemented. Phase 3 added operating profiles under `profiles/` and a persistent `/profile` command.
+Phase 1, Phase 2, Phase 3, and Phase 4 are implemented. Phase 4 added operational commands for task status, repo validation, commit preparation, cleanup scans, and context audits.
 
 Files produced or updated during this work:
 
@@ -16,6 +16,11 @@ Files produced or updated during this work:
 - `context/` — reusable context navigation, system summaries, and project-intelligence docs.
 - `profiles/` — operating profile definitions for essential, developer, architect, and full modes.
 - `command/profile.md` — persistent profile inspection and switching command.
+- `command/task-status.md` — day-to-day wrapper for task-management status, next, blocked, parallel, start, complete, deps, and validate operations.
+- `command/validate-repo.md` — read-only config consistency report across commands, skills, agents, profiles, context, and docs.
+- `command/commit.md` — cautious config-aware commit preparation without staging or committing.
+- `command/clean.md` — non-destructive cleanup scan for completed tasks, stale handoffs, summaries, temp files, and context size candidates.
+- `command/context-audit.md` — non-destructive context navigation, MVI, and harvest-candidate audit.
 
 Verification already performed for Phase 1:
 
@@ -101,25 +106,31 @@ Completed:
 
 ## Phase 4 — Operational Commands
 
-Status: Next
+Status: Done
 
 Goal: Add practical commands that make the config easier to operate day to day.
 
 Review for consideration: https://github.com/darrenhinde/OpenAgentsControl/tree/main/.opencode/command
 
-Candidate commands:
+Completed commands:
 
-- `task-status` or similar wrapper for task-management status.
-- `validate-repo` for repo health checks.
-- `clean` for stale temp files and completed task cleanup.
-- `commit` for structured pre-commit validation and message guidance.
-- `worktrees` for parallel feature work.
-- `context` for context discovery and harvest operations.
+- `task-status` wrapper for daily task-management inspection and subcommands, excluding `init`.
+- `validate-repo` for read-only repo health and reference-drift checks.
+- `clean` for non-destructive stale file, handoff, completed task, and MVI cleanup scans.
+- `commit` for cautious pre-commit validation, documentation reminders, and commit message guidance.
+- `context-audit` for non-destructive context discovery, MVI checks, and harvest candidate reporting.
 
 Open decisions:
 
-- Prioritize commands after seeing which manual actions repeat most often.
-- Avoid adding broad commands before the context system and profiles settle.
+- `task-status` supports common daily task subcommands but intentionally excludes `init`; hydration remains a deliberate task-management setup step.
+- `validate-repo`, `clean`, and `context-audit` start as read-only report commands; auto-fixes are deferred until their reports prove useful.
+- `commit` is cautious and does not stage, commit, amend, or push.
+
+Follow-up ideas:
+
+- Add optional auto-fix modes to `validate-repo` only after repeated report findings establish safe fixes.
+- Add a dedicated worktree command later if parallel branch operations become frequent.
+- Consider executable validation scripts if markdown command reports become too repetitive to perform manually.
 
 ## Phase 5 — Agent Improvement Loop
 
@@ -145,11 +156,11 @@ Start here:
 1. Read `README.md`, `AGENTS.md`, and this file.
 2. Check `git status --short` to see the current uncommitted state.
 3. If reviewing Phase 1, inspect `skills/task-management/`, `AGENTS.md`, and `agent/spec-planner.md`.
-4. If continuing implementation, start Phase 4 with Operational Commands.
+4. If continuing implementation, start Phase 5 with the Agent Improvement Loop.
 
 Recommended next action:
 
-- Begin Phase 4 by prioritizing operational commands that fit the now-defined profile system.
+- Begin Phase 5 by choosing the smallest useful feedback loop, likely durable error-memory capture or a lightweight validation/evaluation pattern for common agent workflows.
 
 Do not:
 

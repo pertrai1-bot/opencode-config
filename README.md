@@ -104,8 +104,12 @@ Task dependencies use sequence numbers such as `01`, `02`, and `03`. `suggested_
 
 ## Commands
 
-Custom commands live under `command/`. Current commands are mostly workflow routing helpers, such as:
+Custom commands live under `command/`. Current commands include workflow routing and operational helpers, such as:
 
+- `clean`
+- `commit`
+- `context-audit`
+- `context-handoff`
 - `profile`
 - `route-light`
 - `route-full`
@@ -114,11 +118,12 @@ Custom commands live under `command/`. Current commands are mostly workflow rout
 - `route-boundary`
 - `route-policy`
 - `route-explore`
-- `context-handoff`
-- `verify-summary`
+- `task-status`
 - `tdd-cycle`
+- `validate-repo`
+- `verify-summary`
 
-These provide explicit entry points for common workflow modes.
+These provide explicit entry points for common workflow modes, task tracking, repository validation, commit preparation, cleanup scans, and context audits.
 
 ## MCP Servers
 
@@ -141,5 +146,5 @@ Configured MCP integrations are defined in `opencode.jsonc`.
 
 Near-term improvements planned for this config:
 
-- More operational commands for validation, cleanup, and repo health.
+- Deeper validation and optional fixes for operational commands once read-only reports prove useful.
 - Better documentation once the core concepts settle.

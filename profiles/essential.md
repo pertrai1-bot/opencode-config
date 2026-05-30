@@ -13,7 +13,7 @@ Use `essential` as the default operating mode. It keeps context small and escala
 
 - Agents: `plan` for routing and `build` for trivial focused edits.
 - Skills: `adaptive-routing`, `task-framing` when risk appears, `verification`, and lightweight `task-management` awareness.
-- Commands: `/route-light`, `/verify-summary`, `/profile`.
+- Commands: `/route-light`, `/verify-summary`, `/profile`, `/task-status`, `/validate-repo`, `/commit`, `/clean`, and `/context-audit`.
 - Context: `context/INDEX.md`, `context/system/routing-reference.md`, and directly relevant convention files only.
 
 ## Behavior
