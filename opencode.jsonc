@@ -134,7 +134,7 @@
     },
     "memory": {
       "type": "local",
-      "command": ["npx", "@modelcontextprotocol/server-memory"],
+      "command": ["npx", "-y", "@modelcontextprotocol/server-memory"],
       "enabled": true
     },
     "gitnexus": {
